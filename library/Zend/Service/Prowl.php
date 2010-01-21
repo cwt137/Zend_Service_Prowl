@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Prowl
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -116,7 +116,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Constructor
      *
      * @param string|array $apiKey API key(s). if array, up to 5 elements
-     * @param string $providerKey Pprovider API key. Only necessary if you have been whitelisted.
+     * @param string $providerKey Provider API key. Only necessary if you have been whitelisted.
      * @return void
      */
     public function __construct($apiKey, $providerKey = null)
@@ -281,7 +281,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Gets Provider API key
      *
      * @param string $providerKey
-     * @return
+     * @return void
      */
     public function setProviderKey($providerKey)
     {
@@ -323,7 +323,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Sets the name of the application or the application generating the event.
      *
      * @param string $applicationName
-     * @return
+     * @return void
      */
     public function setApplicationName($applicationName)
     {
@@ -333,7 +333,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
     /**
      * Get the name of the event or subject of the notification.
      *
-     * @return
+     * @return string
      */
     public function getEvent()
     {
@@ -344,7 +344,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Set the name of the event or subject of the notification.
      *
      * @param string $event
-     * @return
+     * @return void
      */
     public function setEvent($event)
     {
@@ -386,7 +386,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Sets error or success code returned
      *
      * @param integer $returnCode
-     * @return
+     * @return void
      */
     protected function _setReturnCode($returnCode)
     {
@@ -407,7 +407,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Sets error message returned
      *
      * @param string $errorMessage
-     * @return
+     * @return void
      */
     protected function _setErrorMessage($errorMessage)
     {
@@ -432,7 +432,7 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Sets the date the 1000 request counter resets
      *
      * @param string $resetDate
-     * @return
+     * @return void
      */
     protected function _setResetDate($resetDate)
     {
@@ -457,10 +457,38 @@ class Zend_Service_Prowl extends Zend_Service_Abstract
      * Sets the remaining requests left before the reset date
      *
      * @param integer $remainingRequests
-     * @return
+     * @return void
      */
     protected function _setRemainingRequests($remainingRequests)
     {
         $this->_remainingRequests = $remainingRequests;
+    }
+
+    /**
+     * Checks if request produced an error
+     *
+     * @return boolean
+     */
+    public function isError()
+    {
+        if($this->_returnCode != 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if request produced an error
+     *
+     * @return boolean
+     */
+    public function isSucessfull()
+    {
+        if($this->_returnCode == 200) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
